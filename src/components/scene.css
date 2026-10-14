@@ -1,0 +1,350 @@
+/* ------------------------------------------------------------------
+   Landscape scene
+   Every colour and haze amount below is a registered custom property, so
+   when `data-level` changes on `.app` the browser blends from the old
+   value to the new one instead of snapping.
+   ------------------------------------------------------------------ */
+
+@property --sky-top   { syntax: "<color>"; inherits: true; initial-value: #8cc3ea; }
+@property --sky-mid   { syntax: "<color>"; inherits: true; initial-value: #cfe3ee; }
+@property --sky-bot   { syntax: "<color>"; inherits: true; initial-value: #ffe2b8; }
+@property --sun       { syntax: "<color>"; inherits: true; initial-value: #fff1c2; }
+@property --sun-glow  { syntax: "<color>"; inherits: true; initial-value: #ffd68a; }
+@property --cloud     { syntax: "<color>"; inherits: true; initial-value: #ffffff; }
+@property --far       { syntax: "<color>"; inherits: true; initial-value: #9db4cf; }
+@property --mid       { syntax: "<color>"; inherits: true; initial-value: #7f9bb8; }
+@property --hill      { syntax: "<color>"; inherits: true; initial-value: #4d7c5c; }
+@property --tree-a    { syntax: "<color>"; inherits: true; initial-value: #2f6a4a; }
+@property --tree-b    { syntax: "<color>"; inherits: true; initial-value: #3d7d58; }
+@property --fore      { syntax: "<color>"; inherits: true; initial-value: #1d4a35; }
+@property --sea-top   { syntax: "<color>"; inherits: true; initial-value: #7fc4d0; }
+@property --sea-bot   { syntax: "<color>"; inherits: true; initial-value: #3f90a8; }
+@property --haze-color { syntax: "<color>"; inherits: true; initial-value: #fff1de; }
+@property --sun-op    { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --cloud-op  { syntax: "<number>"; inherits: true; initial-value: 0.85; }
+@property --haze      { syntax: "<number>"; inherits: true; initial-value: 0.18; }
+@property --smog      { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --dark      { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --life      { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --pulse     { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+.app {
+  /* calm: a soft morning over a bay. Used before any reading and while
+     the location and air quality are being fetched. */
+  --sky-top: #8cc3ea;
+  --sky-mid: #cfe3ee;
+  --sky-bot: #ffe2b8;
+  --sun: #fff1c2;
+  --sun-glow: #ffd68a;
+  --sun-op: 1;
+  --cloud: #ffffff;
+  --cloud-op: 0.85;
+  --far: #9db4cf;
+  --mid: #7f9bb8;
+  --hill: #4d7c5c;
+  --tree-a: #2f6a4a;
+  --tree-b: #3d7d58;
+  --fore: #1d4a35;
+  --sea-top: #7fc4d0;
+  --sea-bot: #3f90a8;
+  --haze-color: #fff1de;
+  --haze: 0.18;
+  --smog: 0;
+  --dark: 0;
+  --life: 1;
+  --pulse: 0;
+
+  transition-property:
+    --sky-top, --sky-mid, --sky-bot, --sun, --sun-glow, --cloud, --far, --mid,
+    --hill, --tree-a, --tree-b, --fore, --sea-top, --sea-bot, --haze-color,
+    --sun-op, --cloud-op, --haze, --smog, --dark, --life, --pulse;
+  transition-duration: 2.2s;
+  transition-timing-function: ease-in-out;
+}
+
+.app[data-loading="true"] {
+  --pulse: 1;
+  transition-duration: 1.2s;
+}
+
+.app[data-level="good"] {
+  --sky-top: #3d8fe0;
+  --sky-mid: #7bb9ee;
+  --sky-bot: #cfeaff;
+  --sun: #fffbe0;
+  --sun-glow: #fff0a8;
+  --cloud: #ffffff;
+  --cloud-op: 0.95;
+  --far: #6f93c1;
+  --mid: #4f7aa8;
+  --hill: #2f8a54;
+  --tree-a: #1f7a45;
+  --tree-b: #2a9157;
+  --fore: #145c35;
+  --sea-top: #3fb7cf;
+  --sea-bot: #0f7fa6;
+  --haze-color: #e8f4ff;
+  --haze: 0.06;
+}
+
+.app[data-level="moderate"] {
+  --sky-top: #6fa6d6;
+  --sky-mid: #b6cfe0;
+  --sky-bot: #f1e6bd;
+  --sun: #fff3b0;
+  --sun-glow: #ffe27a;
+  --sun-op: 0.95;
+  --cloud: #fffbe8;
+  --cloud-op: 0.8;
+  --far: #9aaec2;
+  --mid: #83a0ae;
+  --hill: #5b8a5a;
+  --tree-a: #3f7a4a;
+  --tree-b: #4f8c52;
+  --fore: #2c5a3a;
+  --sea-top: #6cb5c0;
+  --sea-bot: #3f8da0;
+  --haze-color: #f6e8b8;
+  --haze: 0.32;
+  --life: 0.7;
+}
+
+.app[data-level="sensitive"] {
+  --sky-top: #9fb0c0;
+  --sky-mid: #e2c19a;
+  --sky-bot: #f4b985;
+  --sun: #ffb866;
+  --sun-glow: #ff9d4a;
+  --sun-op: 0.9;
+  --cloud: #f3d2b0;
+  --cloud-op: 0.55;
+  --far: #b8a0a0;
+  --mid: #9d8a85;
+  --hill: #6d7a55;
+  --tree-a: #55683f;
+  --tree-b: #667a48;
+  --fore: #3b4a2d;
+  --sea-top: #c0b08f;
+  --sea-bot: #6f8a86;
+  --haze-color: #f3b98a;
+  --haze: 0.5;
+  --smog: 0.18;
+  --life: 0.3;
+}
+
+.app[data-level="unhealthy"] {
+  --sky-top: #8f8076;
+  --sky-mid: #b78f7a;
+  --sky-bot: #d1946b;
+  --sun: #e0663c;
+  --sun-glow: #c4452a;
+  --sun-op: 0.75;
+  --cloud: #b9917f;
+  --cloud-op: 0.4;
+  --far: #a68c85;
+  --mid: #8a736f;
+  --hill: #5f6044;
+  --tree-a: #4d5236;
+  --tree-b: #5a5f3d;
+  --fore: #33362a;
+  --sea-top: #8f8478;
+  --sea-bot: #5b6a6a;
+  --haze-color: #c98f6e;
+  --haze: 0.7;
+  --smog: 0.45;
+  --dark: 0.1;
+  --life: 0;
+}
+
+.app[data-level="very-unhealthy"] {
+  --sky-top: #6b5560;
+  --sky-mid: #94706a;
+  --sky-bot: #bb8a70;
+  --sun: #d4764a;
+  --sun-glow: #8f2a2a;
+  --sun-op: 0.5;
+  --cloud: #9a7a78;
+  --cloud-op: 0.25;
+  --far: #7e6068;
+  --mid: #694f57;
+  --hill: #4a4a3a;
+  --tree-a: #3d3d2e;
+  --tree-b: #46463a;
+  --fore: #26261f;
+  --sea-top: #6e5e60;
+  --sea-bot: #44484c;
+  --haze-color: #a05f52;
+  --haze: 0.82;
+  --smog: 0.7;
+  --dark: 0.22;
+  --life: 0;
+}
+
+.app[data-level="hazardous"] {
+  --sky-top: #2a1612;
+  --sky-mid: #5e2a17;
+  --sky-bot: #a0481c;
+  --sun: #c2410c;
+  --sun-glow: #7c2d12;
+  --sun-op: 0.5;
+  --cloud: #7a3a28;
+  --cloud-op: 0.12;
+  --far: #5c3a38;
+  --mid: #45302f;
+  --hill: #2b2724;
+  --tree-a: #231f1c;
+  --tree-b: #2a2522;
+  --fore: #171412;
+  --sea-top: #3b3030;
+  --sea-bot: #241e1f;
+  --haze-color: #8a3b1a;
+  --haze: 0.8;
+  --smog: 0.8;
+  --dark: 0.38;
+  --life: 0;
+}
+
+/* ---- Layout ---- */
+
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--sky-bot);
+}
+
+.scene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Colours ---- */
+
+.stop-sky-top { stop-color: var(--sky-top); }
+.stop-sky-mid { stop-color: var(--sky-mid); }
+.stop-sky-bot { stop-color: var(--sky-bot); }
+.stop-glow    { stop-color: var(--sun-glow); }
+.stop-sea-top { stop-color: var(--sea-top); }
+.stop-sea-bot { stop-color: var(--sea-bot); }
+.stop-haze    { stop-color: var(--haze-color); }
+
+.sun-glow { opacity: var(--sun-op); }
+.sun      { fill: var(--sun); opacity: var(--sun-op); }
+.cloud-drift { fill: var(--cloud); opacity: var(--cloud-op); }
+.mtn-far  { fill: var(--far); }
+.mtn-mid  { fill: var(--mid); }
+.hill     { fill: var(--hill); }
+.tree-a   { fill: var(--tree-a); }
+.tree-b   { fill: var(--tree-b); }
+.fore     { fill: var(--fore); }
+.glint    { fill: var(--sun); opacity: calc(var(--sun-op) * 0.55); }
+.waves path {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: calc(0.28 - var(--haze) * 0.18);
+}
+.birds path {
+  fill: none;
+  stroke: #2b3b4a;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+.birds { opacity: var(--life); }
+.smog circle { fill: var(--haze-color); }
+.smog { opacity: var(--smog); }
+.vignette { opacity: var(--dark); }
+
+/* ---- Parallax: nearer layers slide further as the pointer moves ---- */
+
+.layer {
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.l-sky  { transform: translate(calc(var(--px, 0) * -4px),  calc(var(--py, 0) * -2px)); }
+.l-far  { transform: translate(calc(var(--px, 0) * -9px),  calc(var(--py, 0) * -3px)); }
+.l-mid  { transform: translate(calc(var(--px, 0) * -15px), calc(var(--py, 0) * -5px)); }
+.l-sea  { transform: translate(calc(var(--px, 0) * -15px), calc(var(--py, 0) * -5px)); }
+.l-hill { transform: translate(calc(var(--px, 0) * -26px), calc(var(--py, 0) * -8px)); }
+.l-fore { transform: translate(calc(var(--px, 0) * -42px), calc(var(--py, 0) * -12px)); }
+
+/* ---- Ambient motion ---- */
+
+.cloud-drift { animation: drift 70s ease-in-out infinite alternate; }
+.cloud-drift.d2 { animation-duration: 95s; animation-delay: -30s; }
+.cloud-drift.d3 { animation-duration: 120s; animation-delay: -60s; }
+@keyframes drift {
+  from { transform: translateX(-90px); }
+  to   { transform: translateX(110px); }
+}
+
+.bird-drift { animation: fly 55s linear infinite alternate; }
+@keyframes fly {
+  from { transform: translate(-60px, 10px); }
+  to   { transform: translate(900px, -40px); }
+}
+
+.wave-drift { animation: sway 9s ease-in-out infinite alternate; }
+.wave-drift.w2 { animation-duration: 12s; animation-direction: alternate-reverse; }
+@keyframes sway {
+  from { transform: translateX(-50px); }
+  to   { transform: translateX(50px); }
+}
+
+.glint {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shimmer 3.2s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { transform: scaleX(1); }
+  50%      { transform: scaleX(0.55); }
+}
+
+.smog-drift { animation: smog-move 40s ease-in-out infinite alternate; }
+.smog-drift.s2 { animation-duration: 55s; animation-direction: alternate-reverse; }
+.smog-drift.s3 { animation-duration: 70s; }
+@keyframes smog-move {
+  from { transform: translateX(-120px); }
+  to   { transform: translateX(120px); }
+}
+
+/* ---- Loading: the sun breathes and sends out rings, like a radar ping ---- */
+
+.sun-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: breathe 2.6s ease-in-out infinite;
+}
+@keyframes breathe {
+  50% { transform: scale(calc(1 + var(--pulse) * 0.09)); }
+}
+
+.ring {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ping 3.2s ease-out infinite;
+}
+.ring.r2 { animation-delay: -1.07s; }
+.ring.r3 { animation-delay: -2.13s; }
+@keyframes ping {
+  from { transform: scale(1);   opacity: calc(var(--pulse) * 0.7); }
+  to   { transform: scale(5.5); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene *,
+  .scene *::before,
+  .scene *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .app { transition-duration: 0.4s; }
+}

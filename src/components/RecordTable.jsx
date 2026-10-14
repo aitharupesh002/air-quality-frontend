@@ -1,4 +1,4 @@
-import { categoryFor, colorFor } from "../aqi";
+import { categoryFor, colorFor, inkFor } from "../aqi";
 
 export default function RecordTable({ records, onEdit, onDelete, loading }) {
   if (loading) {
@@ -32,7 +32,10 @@ export default function RecordTable({ records, onEdit, onDelete, loading }) {
                 <td>{record.city}</td>
                 <td>{record.aqi}</td>
                 <td>
-                  <span className="badge" style={{ backgroundColor: colorFor(category) }}>
+                  <span
+                    className="chip"
+                    style={{ backgroundColor: colorFor(category), color: inkFor(category) }}
+                  >
                     {category}
                   </span>
                 </td>

@@ -54,8 +54,8 @@ export default function RecordForm({ editingRecord, onSave, onCancel, saving }) 
   }
 
   return (
-    <form className="record-form" onSubmit={handleSubmit}>
-      <h2>{editingRecord ? "Edit record" : "Add a new record"}</h2>
+    <form className="record-form glass" onSubmit={handleSubmit}>
+      <h2>{editingRecord ? "Edit record" : "Add a record manually"}</h2>
 
       <div className="field-row">
         <label>
@@ -117,7 +117,11 @@ export default function RecordForm({ editingRecord, onSave, onCancel, saving }) 
         />
       </label>
 
-      {error && <p className="form-error">{error}</p>}
+      {error && (
+        <p className="form-error" role="alert">
+          {error}
+        </p>
+      )}
 
       <div className="form-actions">
         <button type="submit" disabled={saving}>

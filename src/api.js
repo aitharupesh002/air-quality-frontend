@@ -53,4 +53,19 @@ export async function deleteRecord(id) {
   return handleResponse(res);
 }
 
+// Live air quality (not saved): by coordinates or by city name.
+export async function getLiveByCoords(lat, lon, city = "") {
+  const params = new URLSearchParams({ lat, lon });
+  if (city) params.set("city", city);
+  const res = await fetch(`${BASE_URL}/api/live?${params.toString()}`);
+  return handleResponse(res);
+}
+
+export async function getLiveByCity(city) {
+  const res = await fetch(
+    `${BASE_URL}/api/live/search?city=${encodeURIComponent(city)}`
+  );
+  return handleResponse(res);
+}
+
 export { BASE_URL };
